@@ -1,4 +1,4 @@
-export interface User {
+export interface UserResponse {
   id: number;
   name: string;
   username: string;
@@ -28,7 +28,7 @@ export interface Company {
   bs: string;
 }
 
-export interface UserTransform {
+export interface User {
   id: number;
   name: string;
   username: string;

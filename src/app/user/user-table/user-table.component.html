@@ -1,8 +1,46 @@
-<table>
-  <thead>
-    <th *ngFor="let header of headers">{{ header }}</th>
-  </thead>
-  <tbody>
-    <td></td>
-  </tbody>
-</table>
+<div class="container">
+  <div class="form">
+    <input
+      type="text"
+      [(ngModel)]="filter"
+      placeholder="Search users"
+      (input)="filterUsers()"
+    />
+  </div>
+
+  <table class="table">
+    <thead class="table__header">
+      <tr>
+        <th class="table__header__column" *ngFor="let header of headers">
+          {{ header }}
+        </th>
+      </tr>
+    </thead>
+    <tbody class="table__body">
+      <tr *ngFor="let user of getUsersPerPage()">
+        <td class="table__body__column">{{ user.id }}</td>
+        <td class="table__body__column">{{ user.name }}</td>
+        <td class="table__body__column">{{ user.username }}</td>
+        <td class="table__body__column">{{ user.email }}</td>
+        <td class="table__body__column">{{ user.website }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <button
+      class="pagination__btn"
+      [disabled]="!hasPreviousPage()"
+      (click)="onChangePage(page - 1)"
+    >
+      previus
+    </button>
+    <button
+      class="pagination__btn"
+      (click)="onChangePage(page + 1)"
+      [disabled]="!hasNextPage()"
+    >
+      next
+    </button>
+  </div>
+</div>
