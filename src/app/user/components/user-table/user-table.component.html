@@ -1,12 +1,5 @@
 <div class="container">
-  <div class="form">
-    <input
-      type="text"
-      [(ngModel)]="filter"
-      placeholder="Search users"
-      (input)="filterUsers()"
-    />
-  </div>
+  <app-filter (filterChange)="filterUsers($event)"></app-filter>
 
   <table class="table">
     <thead class="table__header">
@@ -27,20 +20,10 @@
     </tbody>
   </table>
 
-  <div class="pagination">
-    <button
-      class="pagination__btn"
-      [disabled]="!hasPreviousPage()"
-      (click)="onChangePage(page - 1)"
-    >
-      previus
-    </button>
-    <button
-      class="pagination__btn"
-      (click)="onChangePage(page + 1)"
-      [disabled]="!hasNextPage()"
-    >
-      next
-    </button>
-  </div>
+  <app-pagination
+    [page]="page"
+    [hasNextPage]="hasNextPage()"
+    [hasPreviousPage]="hasPreviousPage()"
+    (pageChange)="onChangePage($event)"
+  ></app-pagination>
 </div>

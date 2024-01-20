@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../interfaces/user.interface';
-import { UserService } from '../services/user.service';
+import { User } from '../../interfaces/user.interface';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-table',
@@ -13,14 +13,13 @@ export class UserTableComponent implements OnInit {
   usersFiltered: User[] = [];
   userPerPage: number = 5;
   page: number = 1;
-  filter: string = '';
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe((users) => {
       this.users = users;
-      this.filterUsers();
+      this.filterUsers('');
     });
   }
 
@@ -30,11 +29,11 @@ export class UserTableComponent implements OnInit {
     return this.usersFiltered.slice(indexInit, indexEnd);
   }
 
-  filterUsers(): void {
-    if (!this.filter) {
+  filterUsers(filter: string): void {
+    if (!filter) {
       this.usersFiltered = [...this.users];
     } else {
-      const filtroLowerCase = this.filter.toLowerCase();
+      const filtroLowerCase = filter.toLowerCase();
       this.usersFiltered = this.users.filter(
         (user) =>
           user.name.toLowerCase().includes(filtroLowerCase) ||
